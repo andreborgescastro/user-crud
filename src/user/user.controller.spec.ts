@@ -14,5 +14,10 @@ describe('UserController', () => {
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
+    expect(controller.create).toBeDefined();
+    expect(controller.findAll).toBeDefined();
+    expect(controller.findOne).toBeDefined();
+    expect(controller.update).toBeDefined();
+    expect(controller.remove).toBeDefined();
   });
 });
