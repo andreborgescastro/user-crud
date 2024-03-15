@@ -15,4 +15,7 @@ export class CreateAddressDto {
 
   @IsString()
   cep: string;
+
+  @IsNumberString()
+  id_usuario?: string;
 }

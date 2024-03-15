@@ -1,4 +1,5 @@
 import {
+  AutoIncrement,
   Column,
   ForeignKey,
   Model,
@@ -7,9 +8,10 @@ import {
 } from 'sequelize-typescript';
 import { User } from '../user/user.model';
 
-@Table({ tableName: 'Endereco' })
+@Table({ tableName: 'Endereco', createdAt: false, updatedAt: false })
 export class Address extends Model {
   @PrimaryKey
+  @AutoIncrement
   @Column
   id: number;
 
