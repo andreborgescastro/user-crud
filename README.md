@@ -63,6 +63,16 @@ npm run test:cov
 ## Notas Adicionais
 Certifique-se de que as portas necessárias não estejam sendo utilizadas por outros serviços em sua máquina.
 
+## Autenticação
+Já há um usuário padrão criado na aplicação, as credenciais estão na collection, ou abaixo:
+
+``` bash
+{
+	"username":"usuario01",
+	"password":"senha01"
+}
+```
+
 ### Portas
 A API é disponibilizada na porta 3000. E o banco de dados na porta 3306.
 
