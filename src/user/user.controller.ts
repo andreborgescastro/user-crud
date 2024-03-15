@@ -6,8 +6,11 @@ import {
   Param,
   Patch,
   Post,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { UserService } from './user.service';
+import { CreateUserDto } from './dto/createUser.dto';
 
 @Controller('user')
 export class UserController {
@@ -18,22 +21,23 @@ export class UserController {
   }
 
   @Post()
-  create(@Body() userPostDto: any) {
-    return userPostDto;
+  @UsePipes(new ValidationPipe({ transform: true }))
+  create(@Body() userDTO: CreateUserDto) {
+    return this.userService.createUser(userDTO);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return 'Obtenção de usuário por ID:' + id;
+    return this.userService.getUser(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: any) {
-    return { id, updateUserDto };
+    return this.userService.updateUser(id, updateUserDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return 'Remoção de usuário por ID' + id;
+    return this.userService.destroy(id);
   }
 }

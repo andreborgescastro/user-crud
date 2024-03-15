@@ -1,4 +1,5 @@
 import {
+  AutoIncrement,
   Column,
   CreatedAt,
   HasOne,
@@ -7,11 +8,12 @@ import {
   Table,
   Unique,
 } from 'sequelize-typescript';
-import { Address } from './../endereco/endereco.model';
+import { Address } from '../address/address.model';
 
 @Table({ tableName: 'Usuario', updatedAt: false })
 export class User extends Model {
   @PrimaryKey
+  @AutoIncrement
   @Column
   id: number;
 
