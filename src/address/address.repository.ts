@@ -1,7 +1,8 @@
 import { InjectModel } from '@nestjs/sequelize';
 import { Address } from './address.model';
 import { Repository } from 'sequelize-typescript';
-import { CreateAddressDto } from './dto/address.dto';
+import { CreateAddressDto } from './dto/createAddress.dto';
+import { UpdateAddressDto } from './dto/updateAddress.dto';
 
 export class AddressRepository {
   constructor(
@@ -9,7 +10,16 @@ export class AddressRepository {
     private readonly addressRepository: Repository<Address>,
   ) {}
 
-  public createAddress(dto: CreateAddressDto) {
+  public save(dto: CreateAddressDto) {
     return this.addressRepository.create({ id: null, ...dto });
+  }
+
+  public update(
+    dto: UpdateAddressDto,
+  ): Promise<[affectedCount: number, affectedRows: Address[]]> {
+    return this.addressRepository.update(dto, {
+      where: { id_usuario: dto.id_usuario },
+      returning: true,
+    });
   }
 }

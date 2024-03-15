@@ -1,5 +1,5 @@
 import { IsNumberString, IsString } from 'class-validator';
-import { CreateAddressDto } from 'src/address/dto/address.dto';
+import { CreateAddressDto } from './../../address/dto/createAddress.dto';
 
 export class CreateUserDto {
   @IsNumberString()

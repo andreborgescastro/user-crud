@@ -4,6 +4,7 @@ import { UserRepository } from '../user.repository';
 import { UserRepositoryMock } from './mocks/user.repository.mock';
 import { AddressServiceMock } from './mocks/address.service.mock';
 import { AddressService } from './../../address/address.service';
+import { AuthService } from './../../auth/auth.service';
 
 describe('UserService', () => {
   let service: UserService;
@@ -19,6 +20,10 @@ describe('UserService', () => {
         {
           provide: AddressService,
           useValue: AddressServiceMock,
+        },
+        {
+          provide: AuthService,
+          useValue: () => {},
         },
       ],
     }).compile();

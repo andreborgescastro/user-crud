@@ -43,4 +43,37 @@ export class AuthService {
   ): Promise<boolean> {
     return await bcrypt.compare(value, encryptedValue);
   }
+  private parseJwt(token: string) {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const buffer = Buffer.from(base64, 'base64');
+    const jsonPayload = decodeURIComponent(
+      buffer
+        .toString()
+        .split('')
+        .map(function (c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join(''),
+    );
+
+    return JSON.parse(jsonPayload);
+  }
+
+  public extractUsernameFromHeader(header: any) {
+    const jwt = this.extractTokenFromHeader(header);
+    const jwtDecoded = this.parseJwt(jwt);
+    const username = jwtDecoded.username;
+    if (!username) {
+      throw new Error('Não foi possível identificar o usuário!');
+    }
+    return username;
+  }
+
+  private extractTokenFromHeader(header: any): string | undefined {
+    if (!header.authorization) {
+      throw new Error('Não foi possível obter o token do cabeçalho');
+    }
+    return header.authorization.split(' ')[1];
+  }
 }

@@ -1,7 +1,6 @@
 import { Repository } from 'sequelize-typescript';
 import { User } from './user.model';
 import { InjectModel } from '@nestjs/sequelize';
-import { CreateUserDto } from './dto/createUser.dto';
 import { Address } from './../address/address.model';
 
 export class UserRepository {
@@ -22,18 +21,6 @@ export class UserRepository {
     ];
   }
 
-  private generateUser(
-    userDto: Partial<CreateUserDto>,
-    usuarioCriacao: string,
-  ) {
-    return {
-      id: null,
-      status: true,
-      usuario_criacao: usuarioCriacao,
-      ...userDto,
-    };
-  }
-
   public findAll(): Promise<User[]> {
     return this.userRepository.findAll({
       include: this.getAddressStatement(),
@@ -48,7 +35,6 @@ export class UserRepository {
   }
 
   public save(user): Promise<User> {
-    console.log('Repositório:', user);
     return this.userRepository.create({ id: null, ...user });
   }
 
@@ -62,7 +48,14 @@ export class UserRepository {
     });
   }
 
-  public destroy(id: string): Promise<number> {
-    return this.userRepository.destroy({ where: { id } });
+  public destroy(
+    id: string,
+    username: string,
+  ): Promise<[affectedCount: number]> {
+    removido_em: new Date();
+    return this.userRepository.update(
+      { id, usuario_remocao: username, status: false, removido_em: new Date() },
+      { where: { id } },
+    );
   }
 }
