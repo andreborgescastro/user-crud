@@ -2,7 +2,8 @@ import { Module } from '@nestjs/common';
 import { UserModule } from './user/user.module';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { User } from './user/user.model';
-import { Address } from './endereco/endereco.model';
+import { Address } from './address/address.model';
+import { AddressModule } from './address/address.module';
 
 /**
  * Módulo principal da aplicação.
@@ -23,6 +24,7 @@ import { Address } from './endereco/endereco.model';
       database: process.env.DB_NAME,
       models: [User, Address],
     }),
+    AddressModule,
   ],
 })
 export class AppModule {}
