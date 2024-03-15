@@ -5,6 +5,7 @@ import { UserRepository } from '../user.repository';
 import { UserRepositoryMock } from './mocks/user.repository.mock';
 import { AddressService } from './../../address/address.service';
 import { AddressServiceMock } from './mocks/address.service.mock';
+import { JwtService } from '@nestjs/jwt';
 
 describe('UserController', () => {
   let controller: UserController;
@@ -16,6 +17,7 @@ describe('UserController', () => {
         UserService,
         { provide: UserRepository, useValue: UserRepositoryMock },
         { provide: AddressService, useValue: AddressServiceMock },
+        { provide: JwtService, useValue: () => {} },
       ],
     }).compile();
 
