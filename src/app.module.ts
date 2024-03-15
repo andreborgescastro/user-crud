@@ -4,6 +4,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { User } from './user/user.model';
 import { Address } from './address/address.model';
 import { AddressModule } from './address/address.module';
+import { AuthModule } from './auth/auth.module';
 
 /**
  * Módulo principal da aplicação.
@@ -25,6 +26,7 @@ import { AddressModule } from './address/address.module';
       models: [User, Address],
     }),
     AddressModule,
+    AuthModule,
   ],
 })
 export class AppModule {}
