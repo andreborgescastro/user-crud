@@ -1,0 +1,25 @@
+{
+  "development": {
+    "username": "srv_user_crud",
+    "password": "secret",
+    "database": "user_crud",
+    "host": "localhost",
+    "port":"3306",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "srv_user_crud",
+    "password": "secret",
+    "database": "user_crud",
+    "host": "localhost",
+    "port":"3306",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
