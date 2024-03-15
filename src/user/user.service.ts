@@ -53,7 +53,6 @@ export class UserService {
       });
 
       if (!affectedRows) {
-        console.log('Hey');
         await this.addressService.createAddress({
           ...endereco,
           id_usuario: id,

@@ -1,73 +1,74 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Instruções para Execução do Projeto
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este projeto é um sistema de cadastro de usuários desenvolvido utilizando Node.js adotando NestJS como framework, integrado a um banco de dados relacional MySQL. A aplicação foi containerizada, tanto ela quanto o banco de dados, para facilitar a execução em diferentes plataformas.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Pré-requisitos
 
-## Description
+Certifique-se de ter o ambiente NODE configurado, bem como o Docker e Docker Compose instalados em sua máquina.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Configuração
 
-## Installation
+1. Renomeie o arquivo `.env-example` para `.env`.
+2. Execute o seguinte comando para instalar as dependências do projeto:
 
 ```bash
-$ npm install
+npm install
 ```
 
-## Running the app
+## Execução
+
+Para iniciar a aplicação, execute o seguinte comando:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+docker compose up
 ```
 
-## Test
+Após a criação dos containers, você precisará aplicar as migrações e popular o banco de dados com dados iniciais.
+
+1 - Execute o seguinte comando na raiz do projeto para aplicar as migrações:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+make migrate
 ```
 
-## Support
+2 - Em seguida, execute o seguinte comando para popular o banco de dados com dados iniciais:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```
+make seed
+```
 
-## Stay in touch
+## Utilização
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Após seguir os passos acima, o sistema estará pronto para ser utilizado. Você pode consumir a API conforme a collection fornecida.
 
-## License
+### Collection
 
-Nest is [MIT licensed](LICENSE).
+A collection foi exportada do request insomnia, recomendamos que consuma com o mesmo para evitar conflitos. Está na raíz do projeto, na pasta /collection.
+
+
+## Testes
+
+Para executar os testes, utilize os seguintes comandos:
+
+Para testar:
+```bash
+npm run test
+```
+
+Para estatísticas de percentual de cobertura testado:
+```bash
+npm run test:cov
+```
+
+## Notas Adicionais
+Certifique-se de que as portas necessárias não estejam sendo utilizadas por outros serviços em sua máquina.
+
+### Portas
+A API é disponibilizada na porta 3000. E o banco de dados na porta 3306.
+
+### Swagger
+Para acessar o swagger da aplicação é necessário que suba o serviço e acesse:
+
+http://localhost:3000/api
+
+Por favor, sinta-se à vontade para entrar em contato em caso de dúvidas ou problemas durante a execução do projeto.

@@ -7,16 +7,21 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/createUser.dto';
+import { AuthGuard } from './../auth/auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('User')
 @Controller('user')
-// @UseGuards(AuthGuard)
+@UseGuards(AuthGuard)
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
   @Get()
   findAll() {
     return this.userService.getUsers();
