@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { UserModule } from './user/user.module';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { Usuario } from './user/user.model';
-import { Endereco } from './endereco/endereco.model';
+import { User } from './user/user.model';
+import { Address } from './endereco/endereco.model';
 
 /**
  * Módulo principal da aplicação.
@@ -20,8 +20,8 @@ import { Endereco } from './endereco/endereco.model';
       port: parseInt(process.env.DB_PORT),
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
-      database: process.env.DB,
-      models: [Usuario, Endereco],
+      database: process.env.DB_NAME,
+      models: [User, Address],
     }),
   ],
 })

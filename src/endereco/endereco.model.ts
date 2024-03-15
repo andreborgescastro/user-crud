@@ -5,10 +5,10 @@ import {
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
-import { Usuario } from 'src/user/user.model';
+import { User } from './../user/user.model';
 
-@Table
-export class Endereco extends Model {
+@Table({ tableName: 'Endereco' })
+export class Address extends Model {
   @PrimaryKey
   @Column
   id: number;
@@ -34,7 +34,7 @@ export class Endereco extends Model {
   @Column
   cep: string;
 
-  @ForeignKey(() => Usuario)
+  @ForeignKey(() => User)
   @Column
   id_usuario: string;
 }

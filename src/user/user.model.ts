@@ -1,15 +1,16 @@
 import {
   Column,
+  CreatedAt,
   HasOne,
   Model,
   PrimaryKey,
   Table,
   Unique,
 } from 'sequelize-typescript';
-import { Endereco } from 'src/endereco/endereco.model';
+import { Address } from './../endereco/endereco.model';
 
-@Table
-export class Usuario extends Model {
+@Table({ tableName: 'Usuario', updatedAt: false })
+export class User extends Model {
   @PrimaryKey
   @Column
   id: number;
@@ -27,6 +28,7 @@ export class Usuario extends Model {
   @Column({ defaultValue: true })
   status: boolean;
 
+  @CreatedAt
   @Column
   criado_em: Date;
 
@@ -39,6 +41,6 @@ export class Usuario extends Model {
   @Column
   usuario_remocao: string;
 
-  @HasOne(() => Endereco)
-  endereco: Endereco;
+  @HasOne(() => Address)
+  endereco: Address;
 }

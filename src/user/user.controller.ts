@@ -7,12 +7,14 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
+  constructor(private readonly userService: UserService) {}
   @Get()
   findAll() {
-    return 'Obtenção de todos os usuários';
+    return this.userService.getUsers();
   }
 
   @Post()
