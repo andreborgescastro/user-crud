@@ -1,0 +1,43 @@
+version: '3'
+services:
+  api-user-crud:
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    image: user-crud
+    container_name: user-crud
+    entrypoint: npm run start:dev
+    env_file:
+      ./.env
+    environment:
+      - TZ=America/Sao_Paulo
+    volumes:
+      - './:/usr/src/app'
+    ports:
+      - '3000:3000'
+    networks:
+      - user-crud-network
+    depends_on:
+      - mysql-database
+  mysql-database:
+    image: mysql:8.0
+    ports:
+        - "3306:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+    restart: on-failure
+    environment:
+        MYSQL_ROOT_USER: root
+        MYSQL_ROOT_PASSWORD: secret
+        MYSQL_DATABASE: user_crud
+        MYSQL_USER: srv_user_crud
+        MYSQL_PASSWORD: secret
+    networks:
+      - user-crud-network
+volumes:
+  dbdata:
+
+networks:
+  user-crud-network:
+    name: user-crud-network
+    driver: bridge
