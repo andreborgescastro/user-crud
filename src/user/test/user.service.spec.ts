@@ -1,7 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserService } from '../user.service';
 import { UserRepository } from '../user.repository';
-import { UserRepositoryMock } from './mocks/userRepository.mock';
+import { UserRepositoryMock } from './mocks/user.repository.mock';
+import { AddressServiceMock } from './mocks/address.service.mock';
+import { AddressService } from './../../address/address.service';
 
 describe('UserService', () => {
   let service: UserService;
@@ -13,6 +15,10 @@ describe('UserService', () => {
         {
           provide: UserRepository,
           useValue: UserRepositoryMock,
+        },
+        {
+          provide: AddressService,
+          useValue: AddressServiceMock,
         },
       ],
     }).compile();

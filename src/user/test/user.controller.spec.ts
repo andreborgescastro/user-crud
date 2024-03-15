@@ -2,7 +2,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UserController } from '../user.controller';
 import { UserService } from '../user.service';
 import { UserRepository } from '../user.repository';
-import { UserRepositoryMock } from './mocks/userRepository.mock';
+import { UserRepositoryMock } from './mocks/user.repository.mock';
+import { AddressService } from './../../address/address.service';
+import { AddressServiceMock } from './mocks/address.service.mock';
 
 describe('UserController', () => {
   let controller: UserController;
@@ -12,10 +14,8 @@ describe('UserController', () => {
       controllers: [UserController],
       providers: [
         UserService,
-        {
-          provide: UserRepository,
-          useValue: UserRepositoryMock,
-        },
+        { provide: UserRepository, useValue: UserRepositoryMock },
+        { provide: AddressService, useValue: AddressServiceMock },
       ],
     }).compile();
 

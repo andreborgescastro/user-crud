@@ -2,12 +2,17 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { User } from './user.model';
 import { CreateUserDto } from './dto/createUser.dto';
-import { CreateAddressDto } from 'src/address/dto/address.dto';
+import { CreateAddressDto } from './../address/dto/address.dto';
 import * as moment from 'moment';
+import { AddressService } from './../address/address.service';
+import { Address } from './../address/address.model';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(
+    private readonly userRepository: UserRepository,
+    private readonly addressService: AddressService,
+  ) {}
 
   getBirthdate(date: string) {
     const allowedFormats = ['DD/MM/YYYY'];
@@ -45,12 +50,13 @@ export class UserService {
   async createUser(dto: CreateUserDto): Promise<User> {
     try {
       const birthdate = this.getBirthdate(dto.data_nascimento);
-      delete dto.data_nascimento;
-      const { id } = await this.userRepository.save({
-        data_nascimento: birthdate,
+      const { id: p_id } = await this.userRepository.save({
         ...dto,
+        data_nascimento: birthdate,
         usuario_criacao: 'admin',
       });
+      const id = p_id.toString();
+      dto.endereco['id_usuario'] = id;
       await this.createAddress(dto.endereco);
       return this.getUser(id.toString());
     } catch (error) {
@@ -75,13 +81,9 @@ export class UserService {
     }
   }
 
-  createAddress(p_address: CreateAddressDto) {
-    const address = JSON.parse(JSON.stringify(p_address));
-    // Deve criar o endereço a partir do service de endereço
-    return null;
+  createAddress(address: CreateAddressDto): Promise<Address> {
+    return this.addressService.createAddress(address);
   }
-
-  getAddress(dto: CreateUserDto) {}
 
   destroy(id: string): Promise<number> {
     return this.userRepository.destroy(id);

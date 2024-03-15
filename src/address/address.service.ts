@@ -6,7 +6,7 @@ import { CreateAddressDto } from './dto/address.dto';
 export class AddressService {
   constructor(private readonly addressRepository: AddressRepository) {}
 
-  public createAddres(dto: CreateAddressDto) {
+  public createAddress(dto: CreateAddressDto) {
     return this.addressRepository.createAddress(dto);
   }
 }
